@@ -3,3 +3,6 @@ __pycache__
 *.ini
 *.txt
 JSON/Crimes/*.json
+env
+*.csv
+irisdataset.py
