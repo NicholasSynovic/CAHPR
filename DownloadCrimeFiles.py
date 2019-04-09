@@ -4,8 +4,7 @@ GITHUB URL: https://www.github.com/nsynovic
 
 ABSTRACTION: Test application of the GetCrimes.py class GetCrimes. Really is only useful for understanding how to use the GetCrime library of code, or for building your own crime database.
 '''
-from GetCrimes import GetCrimes
-import math
+from GetCrimes import GetCrimes # The actual class from the file
 
 aT = input("What is your app token? ")
 # oS = int(input("What offset do you want your crimes to start at? "))
@@ -16,7 +15,6 @@ mX = int(input("What is the maximum amount of iterations that you want this prog
 gc = GetCrimes(appToken=aT, offset=oS)
 
 for x in range(mX):
-    new = 0
     filename = r"JSON\Crimes\crimes" + str(x) + ".json" 
     if oS == 0:
         gc.setURL(appToken=aT, offset=x*1000)
@@ -26,6 +24,7 @@ for x in range(mX):
         outcome2 = gc.getURL()
         print(str(x) + ", " + str(outcome1) + ", " + outcome2)
 
+    # This does not work
     # else:    
     #     gc.setJSON()    # Downloads json
     #     data = gc.getJSON() # Makes json viewable

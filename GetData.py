@@ -1,65 +1,141 @@
-import json
-import csv
-import numpy
+'''FILENAME: GetData.py
+CREATED BY: Nicholas M. Synovic
+GITHUB URL: https://www.github.com/nsynovic
+
+ABSTRACTION: Library to parse and format JSON data into CSV and numpy.array data structures.
+'''
+import json # Needed to parse through data
+import csv  # Needed to create CSV files and parse through CSV styled data
+import numpy    # Needed to output a numpy.array
 
 class GetData:
+    '''ABSTRACTION: Should be used to format the crime JSON data into different data structures
+'''
 
     def __init__(self, filename:str)    ->  None:
+        '''ABSTRACTION: Starts the class and loads JSON data from a .json file and into an array
+PRE: filename is a file that has crime data from the CPD OpenData Socratic API. Typically this would be found in JSON/Crimes
+POST: Creates jsonData and filename class variables.
+'''
         self.filename = filename
-        with open(file=self.filename, mode="r") as file:
-            self.jsonData = json.load(fp=file)
-        file.close()
-
-    def addToCSV(self, dictionary:dict, filename:str="crime.csv")   ->  None:   # Appends the values of a dictionary to a csv file
-            valueList = self.getDictionaryValues(dictionary=dictionary)
-            with open(file=filename, mode="a") as file:
-                file.write("%s,%s,%s,%s,%s\n"%(valueList[0],valueList[1],valueList[2],valueList[3],valueList[4],))
+        try:
+            with open(file=self.filename, mode="r") as file:
+                self.data = json.load(fp=file)
             file.close()
+        except IOError:
+            print("Invalid filename: " + str(self.filename))
+            quit(code=1)
+        self.parsedDict = {}
 
-    def buildCSVFile(self, amount:int=1000, filename:str="crime.csv")  -> None: # Builds a csv file with "amount" crime reports
-        for x in range(amount):
-            dataDict=None
-            dataDict = self.createJSONCrimeReport(index=x)
-            self.addToCSV(dictionary=dataDict, filename=filename)
+    def addToParsedDict(self, key:str, value:str)   ->  None:
+        '''ABSTRACTION: Adds a key value pair to the parsedDict class variable. Will change a keys value if a key is already signed a value
+PRE: key is a string that will be the key added to parsedDict.
+PRE: value is a string that will be the value added to parsedDict.
+POST: parsedDict is updated with the new key value pair.
+'''
+        self.parsedDict[key] = value
+
+    def getCrimeSpecificInfo(self, index:int=0, key:str="")   ->  dict:
+        '''ABSTRACTION: Returns a dictionary where the key is the arguement passed and the value is the value of the arguement in a given crime. 
+PRE: index is an int that tells what crime should be parsed for data (min = 0, max = 999).
+PRE: key is a string that will be used to find a matching key in a crime and extropolate that data.
+POST: Returns a dictionary containg explicitly the key value pair for a specific crime.
+'''
+        crime = self.getSpecificCrime(index=index)
+        try:
+            return {key : crime[key]}
+        except KeyError:    # Invalid key inputted
+            print("Invalid key: " + str(key))
+            quit(code=1)
+
+    def getData(self)   ->  list:
+        '''ABSTRACTION: Returns every crime that can be worked on in this format: [{...}, {...}, {...}, ...]
+PRE: No inputs.
+POST: Returns a list of crimes formatted as a dictionary.
+'''    
+        return self.data
+
+    def getFilename(self)   ->  str:
+        '''ABSTRACTION: Returns the filename of the current working file.
+PRE: No inputs.
+POST: Returns the filename as a string.
+'''
+        return self.filename
+
+    def getKeys(self, dictionary:dict)  ->  list:
+        '''ABSTRACTION: Returns the keys of a dictionary in an iterable list.
+PRE: dictionary is the dictionary to be parsed through for keys.
+POST: a list is returned with all and only the dictionary keys.
+'''
+        return list(dictionary.keys())
+
+    def getParsedDict(self) ->  dict:
+        '''ABSTRACTION: Returns the parsedDict class variable
+PRE: No inputs.
+POST: Returns the dictionary
+'''
+        return self.parsedDict
     
-    def changeFilename(self, filename:str)  ->  None:
-        self.filename = filename
+    def getSpecificCrime(self, index:int=0) ->  dict:
+        '''ABSTRACTION: Returns all the data associated with one crime.
+PRE: index is an int that tells what crime should be parsed for data (min = 0, max = 999).
+POST: returns a dictionary containing all the data for a given crime.
+'''
+        return self.getData()[index]
 
-    def createJSONCrimeReport(self, index:int=0)   ->  dict:   # Creates a crime report as a dict
-        data = self.jsonData[index]
-        dictionary = {}
-        dictionary["beat"] = str(data["beat"])
-        dictionary["fbi_code"] = str(data["fbi_code"][:2])    # This does not take into considerations the alphabetically varitions of the FBI codes (i.e 08A -> 8)
-        arrestRaw = data["arrest"]  # Boolean
-        if arrestRaw:
-            dictionary["arrest"] = "1"
-        else:
-            dictionary["arrest"] = "0"
-        domesticRaw = data["domestic"]  # Boolean
-        if domesticRaw:
-            dictionary["domestic"] = "1"
-        else:
-            dictionary["domestic"] = "0"
-        dictionary["district"] = str(data["district"])
-        return dictionary
-
-    def getDictionaryValues(self, dictionary:dict=None)   ->  list: # Takes a dict and spits out a list of only the values of the dict in the order that they were inputted
+    def getValues(self, dictionary:dict)    ->  list:
+        '''ABSTRACTION: Returns the values of a dictionary in an iterable list.
+PRE: dictionary is the dictionary to be parsed through for values.
+POST: a list is returned with all and only the dictionary values.
+'''    
         return list(dictionary.values())
 
-    def getJSONCrimeInfo(self, index:int=0) ->  dict:   # Returns a crime in raw JSON format
-        return self.jsonData[index]
+    def setData(self, filename:str=None)   ->  None:
+        '''ABSTRACTION: Opens a new file and changes what crimes can be worked on. 
+PRE: filename is a string that should be the relative path to a given file.
+POST: the filename class variable is changed and the data class variable is updated to have all the crimes from the file that filename points to.
+'''
+        if filename is not None:
+            self.filename = str(filename)
+        try:
+            with open(file=self.filename, mode="r") as load:
+                self.data = json.load(fp=load)
+            load.close()
+        except IOError:
+            print("Invalid filename: " + str(self.filename))
+            quit(code=1)
 
-    def build2DList(self, amount:int=1000, remove:int=None)  ->  list:
-        data = []
-        removed = []
+    def setFilename(self, filename:str) ->  None:
+        '''ABSTRACTION: Changes the filename class variable to a different value.
+PRE: filename is a string that should be the relative path to a given file.
+POST: the filename class variable's value is changed.
+'''
+        self.filename = filename   
+
+    def setParsedDict(self, data:dict)  ->  None:
+        '''ABSTRACTION: Changes the data in the parsedDict class variable to something entirely different. WARNING: this wil delete any values associated with the variable
+PRE: data is a dictionary to replace the key value pairs in parsedDict
+POST: parsedDict's key value pairs are replaced with those of data
+'''
+        self.parsedDict = data
+
+    def makeNumpyArray(self, amount:int, keys:list)  ->  list:
+        '''ABSTRACTION: Creates a numpy array to be used by sciki-learn by extacting values from a dictionary.
+PRE: amount is an int that represents how many crimes you want to have in your numpy array.
+PRE: keys is a list of strings that represents what key values you want in your numpy array.
+POST: returns a numpy array.
+'''
+        root = []
         for x in range(amount):
-            dictionary = self.createJSONCrimeReport(index=x)
-            values = self.getDictionaryValues(dictionary=dictionary)
-            if remove is not None:
-                removed.append(values.pop(remove))
-            data.append(values)
-        return {"DATA": data, "REMOVED": removed}
-
-    def buildNumpyArray(self, array:list=None):
-        return numpy.array(object=array)
-
+            dataList = []
+            for key in keys:
+                try:
+                    index = keys.index(key)
+                except ValueError:
+                    print("Invalid key: " + key)
+                    quit(code=1)
+                data = self.getCrimeSpecificInfo(index=x, key=str(key))
+                value = self.getValues(dictionary=data)
+                dataList.insert(index, str(value[0]))
+            root.insert(x, dataList)
+        return numpy.array(object=root) 

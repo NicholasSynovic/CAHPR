@@ -18,7 +18,8 @@ class GetCrimes:
 '''
     def __init__(self, appToken:str=None, offset:int=None) ->  None:
         '''ABSTRACTION: Starts the class with or without an OpenData app token, and initializes class variables.
-PRE: Takes in an app token string.
+PRE: appToken is used for a more stable connection with the OpenData Socratic API enpoint.
+PRE: offset is where the crime count will start from (i.e get crimes after the 50th [offest=50] crime).
 POST: Creates a class variable that contains the app token and all other needed class variables with their default values.
 '''
         try:
