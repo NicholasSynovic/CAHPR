@@ -1,5 +1,3 @@
-print(__doc__)
-
 import GetData
 import numpy
 import matplotlib.pyplot as plt
@@ -9,12 +7,9 @@ from sklearn import datasets
 from sklearn.decomposition import PCA
 
 gd = GetData.GetData(r"JSON\Crimes\crimes0.json")
-raw = gd.build2DList(remove=4)
-x = raw["DATA"]
-y = raw["REMOVED"]
 
-xNumpy = gd.buildNumpyArray(x)
-yNumpy = gd.buildNumpyArray(y)
+xNumpy = gd.makeNumpyArray(amount=1000)
+yNumpy = gd.buildNumpyArray(amount=1000, key="community_area", sort=True)
 
 X = xNumpy.astype(numpy.float64)
 y = yNumpy.astype(numpy.float64)

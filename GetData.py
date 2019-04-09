@@ -45,7 +45,7 @@ POST: Returns a dictionary containg explicitly the key value pair for a specific
         try:
             return {key : crime[key]}
         except KeyError:    # Invalid key inputted
-            print("Invalid key: " + str(key))
+            print("Invalid key: " + str(key) + ", " + self.filename)
             quit(code=1)
 
     def getData(self)   ->  list:
@@ -119,12 +119,13 @@ POST: parsedDict's key value pairs are replaced with those of data
 '''
         self.parsedDict = data
 
-    def makeNumpyArray(self, amount:int, keys:list)  ->  list:
+    def makeNumpyArray(self, amount:int)  ->  numpy.array:
         '''ABSTRACTION: Creates a numpy array to be used by sciki-learn by extacting values from a dictionary.
 PRE: amount is an int that represents how many crimes you want to have in your numpy array.
 PRE: keys is a list of strings that represents what key values you want in your numpy array.
 POST: returns a numpy array.
 '''
+        keys = ["beat", "district", "year"] # Change these once a descision has been made on what they should be
         root = []
         for x in range(amount):
             dataList = []
@@ -139,3 +140,20 @@ POST: returns a numpy array.
                 dataList.insert(index, str(value[0]))
             root.insert(x, dataList)
         return numpy.array(object=root) 
+
+    def buildNumpyArray(self, amount:int, key:str, sort:bool=False)  ->  numpy.array:
+        '''ABSTRACTION: Makes a numpy array of only one key. Useful for making the y values.
+PRE: amount is an int that represents how many crimes should be analyzed for the given key. 
+PRE: key is a string that represents the key to be found for a given crime.
+PRE: sort is a boolean which sorts the data frin least to greatest.
+POST: Returns a numpy.array in either sorted or unsorted order.
+'''
+        
+        root = []
+        for x in range(amount):
+            data = self.getCrimeSpecificInfo(index=x, key=str(key))
+            value = self.getValues(dictionary=data)
+            root.insert(x, str(value[0]))
+        if sort:
+            root = sorted(root)
+        return numpy.array(object=root)
