@@ -5,14 +5,10 @@ GITHUB: https://www.github.com/nsynovic
 LAST EDITED: 4/3/2019 14:09
 '''
 import GetCrimes
-
 def download(appToken:str=None, crimeRange:int=6836, startingOffset:int=0)   ->  None:
     gc = GetCrimes.GetCrimes(appToken=appToken)
-
     for count in range(crimeRange):
-
         offset = count * 1000
-        
         if offset < startingOffset:
             pass
         else:
