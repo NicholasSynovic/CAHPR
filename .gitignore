@@ -2,7 +2,11 @@
 __pycache__
 *.ini
 *.txt
-JSON/Crimes/*.json
+Crimes/*.json
 env
 *.csv
 irisdataset.py
+.project
+.pydevproject
+.settings
+*.json
