@@ -1,9 +1,6 @@
-"""GetData.
+"""CREATED BY: Nicholas M. Synovic.
 
-CREATED BY: Nicholas M. Synovic
-GITHUB URL: https://www.github.com/nsynovic
-
-ABSTRACTION: Library to parse and format JSON data into CSV and numpy.array
+Library to parse and format JSON data into CSV and numpy.array
 data structures.
 """
 import json  # Needed to parse through data

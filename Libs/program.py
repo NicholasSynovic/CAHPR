@@ -117,38 +117,6 @@ Type Y or N this time...\n""")
 Type Y or N this time...\n""")
         self.setApplicationToken(applicationToken=aT)
 
-    # Step 8
-    def getTotal(self, communityArea: str, filename: str, key: str):
-        total = 0
-        data = None
-        with open(file=filename) as file:
-            data = json.load(fp=file)
-        for x in data:
-            try:
-                if x["community_area"] == communityArea:
-                    for y in list(x.keys()):
-                        if y == key:
-                            total += 1
-            except KeyError:
-                pass
-        return total
-
-    # Step 8
-    def getRate(self, filename: str, communityArea: str, key: str, value: str):
-        total = self.getTotal(filename=filename, communityArea=communityArea, key=key)   # Step 8
-        data = None
-        count = 0
-        with open(file=filename) as file:
-            data = json.load(fp=file)
-        for x in data:
-            try:
-                if x["community_area"] == communityArea:
-                    if str(x[key]) == value:
-                        count += 1
-            except KeyError:
-                pass
-        return (count / total) * 100
-
     # Step 9
     def rateInCity(self, data: list, key: str, value: str):
         rates = {}
@@ -175,7 +143,7 @@ Type Y or N this time...\n""")
 
 
     # Step 10 # Makes the dictionary containg all the values associated with a community area
-    def buildDictionary(self, arrest: dict, nonArrest: dict, domestic: dict, nonDomestic: dict, filename: str):
+    def buildDictionary(self, arrest: dict, nonArrest: dict, domestic:dict, nonDomestic:dict, filename: str):
         dictionary = {}
         rowData = []
         #
@@ -191,7 +159,6 @@ Type Y or N this time...\n""")
                 values.append(nonArrest[str(x)])
                 values.append(domestic[str(x)])
                 values.append(nonDomestic[str(x)])
-
                 for y in rowData:
                     if y[0] == str(x):
                         for z in range(len(y)):

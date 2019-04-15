@@ -1,57 +1,58 @@
-"""libCheckJSON.
+"""CREATED BY: Nicholas M. Synovic.
 
-CREATED BY Nicholas M. Synovic
-GITHUB URL: https://www.github.com/nsynovic
-
-ABSTRACTION: This library is meant to check a JSON file (that is a list containing dictionaries) for certain features (keys in the dictionaries).
+Parses a JSON file in order to make sure that certain keys exists in
+said file.
 """
 
 import json  # Used to manipulate JSON files
 
 
 class CheckJSON:
-    """A way to make sure JSON files have certain features present in them."""
+    """Class to parse a JSON file."""
 
-    def __init__(self, features: list = []) -> None:
-        """Starts the class with features to be searched for.
+    def __init__(self, keys: list = []) -> None:
+        """Function that initalizes the class and class variables.
 
-PRE: features is a list that contains the keys to be searched for in a JSON
-file
-POST: Creates a class variable containing the features
+PRE: keys is a list of keys to be searched for.
+POST: Initalizes the class and sets assigns features to a class variable.
 """
-        self.features = features
+        self.keys = keys    # Is of type list.
 
-    def getFeatures(self) -> list:
-        """Returns the features list.
+    def getKeys(self) -> list:
+        """Returns the list of keys to be searched for.
 
-PRE: No inputs
-POST: Returns a list of features
+PRE: No inputs.
+POST: Returns the list of keys to be searched for.
 """
-        return self.features
+        return self.keys    # Is of type list.
 
-    def setFeatures(self, features: list) -> None:
-        """Sets the feature list to be searched through.
+    def setKeys(self, keys: list = []) -> None:
+        """Assigns a key list to the keys class variable.
 
-PRE:
-POST:
+PRE: keys is a list of keys to be searched for.
+POST: The features class variable is assigned a new list of keys.
 """
-        self.features = features
+        self.keys = keys    # Is of type list.
 
-    def checkFileForFeatures(self, filename: str,
-                             verbose: bool = True) -> bool or ["ERROR", int]:
-        """Loops through the indices of a file and checks each index for keys.
+    def checkFileForFeatures(self, filename: str = "",
+                             verbose: bool = False) -> bool or ["ERROR", int]:
+        """Parses a JSON file in order to ensure that the keys exist.
 
-PRE:
-POST:
+PRE: filename is a string of the absolute or relatave path to a JSON file to be
+parsed.
+PRE: verbose is a boolean that if True, will display output for every parsed
+crime in the file.
+POST: Returns True if it parsed successfully, otherwise it returns a list
+containg a string and the index of the crime in the file.
 """
         with open(file=filename) as file:
-            data = json.load(fp=file)
+            data = json.load(fp=file)   # Is a list containg dictionaries
             file.close()
         for x in range(len(data)):
-            for key in self.features:
+            for key in self.features:   # Iterates through the list
                 if verbose:
                     try:
-                        data[x][key]
+                        data[x][key]    # If the data 
                     except KeyError:
                         print(filename + " has a key error with key: " + key)
                         return ["ERROR", x]
