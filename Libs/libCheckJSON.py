@@ -49,10 +49,10 @@ containg a string and the index of the crime in the file.
             data = json.load(fp=file)   # Is a list containg dictionaries
             file.close()
         for x in range(len(data)):
-            for key in self.features:   # Iterates through the list
+            for key in self.keys:   # Iterates through the list
                 if verbose:
                     try:
-                        data[x][key]    # If the data 
+                        data[x][key]    # If the data
                     except KeyError:
                         print(filename + " has a key error with key: " + key)
                         return ["ERROR", x]
