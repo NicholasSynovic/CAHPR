@@ -60,7 +60,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 
 ## Acknowledgments
 
-* Dr. Mark V. Albert without whom we would not have created an accurate PCA graph. You can view his CV here.
+* Dr. Mark V. Albert without whom we would not have created an accurate PCA graph. You can view his CV [here](https://sites.google.com/view/mllabs/people/mark-v-albert).
 * [SciKit-Learn's "Comparison of LDA and PCA 2D projection of Iris dataset" Article](https://scikit-learn.org/stable/auto_examples/decomposition/plot_pca_vs_lda.html) which is where the starting point for our PCA code came from.
 * The [Chicago Police Department](https://home.chicagopolice.org/) for whom released the crime data that we used for this project. You can view it [here](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2).
 * The [Chicago Metropolitan Agency For Planning (CMAP)](https://www.cmap.illinois.gov/) for whom collected and aggregated 2010 housing data in Chicago, Illinois. You can view it [here](https://www.cmap.illinois.gov/data/demographics/census/2010-census-analysis).
