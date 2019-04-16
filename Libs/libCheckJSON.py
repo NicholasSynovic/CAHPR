@@ -14,7 +14,7 @@ class CheckJSON:
         """Function that initalizes the class and class variables.
 
 PRE: keys is a list of keys to be searched for.
-POST: Initalizes the class and sets assigns features to a class variable.
+POST: Initalizes the class and sets features to a class variable.
 """
         self.keys = keys    # Is of type list.
 
