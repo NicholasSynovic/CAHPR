@@ -56,7 +56,7 @@ If you are so inclined as to develop CAHPR or expand its functionality, please m
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
