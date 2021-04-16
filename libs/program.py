@@ -1,17 +1,14 @@
 import json
 import os
 
-import numpy``
-
 import Libs.libCheckJSON as CJ
 import Libs.libDownloadJSON as DJ
 import Libs.libGenerateJSON as GJ
 import Libs.libListDirectoryFiles as LDF
+import numpy
 
 
 class Program:
-
-
     def __init__(self) -> None:
         self.applicationToken = None
         self.files = None
@@ -83,7 +80,6 @@ Project By: Nicholas Synovic, Laura Orrico, Eric Su, and Raul Azmitia"""
             outcome2 = ldj.getURL()
             print("Downloaded file: " + str(outcome2))
 
-
     def uiSetFileList(self) -> None:
         print("Creating list of files in directory Crimes...")
         f = LDF.GetFiles(directory="Crimes").getFileList()
@@ -116,8 +112,7 @@ Type in an integer this time..."""
                 self.downloadFiles(maxAmount=maxAmount)
                 break
             else:
-                print(
-                )
+                print()
 
     def uiApplicationToken(self) -> None:
 
@@ -139,7 +134,6 @@ Type in an integer this time..."""
 Type Y or N this time..."""
                 )
         self.setApplicationToken(applicationToken=aT)
-
 
     def buildDictionary(
         self,

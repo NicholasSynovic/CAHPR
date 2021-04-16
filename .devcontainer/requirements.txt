@@ -1,4 +1,4 @@
-yapf
+black
+flake8
 isort
 progress
-pylint

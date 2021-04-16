@@ -1,7 +1,7 @@
-import json``
+import json
+
 
 class Generator:
-
     def __init__(self, key: str) -> None:
 
         self.key = key

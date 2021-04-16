@@ -1,22 +1,22 @@
 {
-  "name": "CAHPR",
-  "extensions": [
-    "ms-python.python",
-    "ms-python.vscode-pylance",
-    "lextudio.restructuredtext",
-    "yzhang.markdown-all-in-one"
-  ],
-  "settings": {
-    "editor.tabSize": 4,
-    "editor.formatOnSave": false,
-    "python.autoComplete.addBrackets": true,
-    "python.autoUpdateLanguageServer": true,
-    "python.languageServer": "Pylance",
-    "python.linting.enabled": true,
-    "python.testing.unittestEnabled": true,
-    "python.analysis.completeFunctionParens": true,
-    "python.linting.pylintEnabled": true,
-    "python.formatting.provider": "yapf"
-  },
-  "dockerFile": "Dockerfile",
+    "name": "CAHPR",
+    "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "lextudio.restructuredtext",
+        "yzhang.markdown-all-in-one"
+    ],
+    "settings": {
+        "editor.tabSize": 4,
+        "editor.formatOnSave": true,
+        "python.autoComplete.addBrackets": true,
+        "python.autoUpdateLanguageServer": true,
+        "python.languageServer": "Pylance",
+        "python.linting.enabled": true,
+        "python.testing.unittestEnabled": true,
+        "python.analysis.completeFunctionParens": true,
+        "python.formatting.provider": "black",
+        "python.linting.flake8Enabled": true,
+    },
+    "dockerFile": "Dockerfile",
 }
