@@ -1,5 +1,9 @@
-from os import isdir, mkdir
-from os.path import join
+import hashlib
+
+from os import mkdir
+from os.path import isdir, join
+
+from json import dumps
 
 import requests
 from progress.bar import Bar
@@ -9,6 +13,7 @@ from requests.models import HTTPError, Response
 class DownloadJSONFiles:
     def __init__(self, appToken: str, outputDirectory: str) -> None:
         self.outputDirectory: str = outputDirectory
+
         baseURL: str = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$limit={}&$offset={}&$$app_token={}"  # E501 Error: Line too long
 
         self.url: str = lambda limit, offset: baseURL.format(
@@ -27,7 +32,7 @@ class DownloadJSONFiles:
         limit: int = 50000,
         maxOffset: int = 10000000,
     ) -> bool:
-        def _downloader(
+        def __downloader(
             limit: int, offsetAmount: int, maxRetries: int = 20
         ) -> Response:
             retries: int = 0
@@ -44,15 +49,19 @@ class DownloadJSONFiles:
                 else:
                     return resp
 
-        def _storeData(filepath: str, count: int = 0) -> None:
+        def __storeData(data: list, filepath: str) -> None:
             with open(
-                file=join(filepath, "crimes{}.json".format(fileCount)),
+                file=join(
+                    filepath,
+                    "crimes_{}.json".format(
+                        hashlib.sha256("".join(dumps(data)).encode()).hexdigest(),
+                    ),
+                ),
                 mode="w",
             ) as file:
-                file.write(response.json())
+                file.write(dumps(data))
                 file.close()
 
-        fileCount: int = 0
         offsetAmount: int = 0
         offsetIterations: int = maxOffset // limit
 
@@ -63,9 +72,8 @@ class DownloadJSONFiles:
             message="Downloading JSON files... ",
             max=offsetIterations,
         ) as bar:
-
             for _ in range(offsetIterations):
-                response = _downloader(limit=limit, offsetAmount=offsetAmount)
+                response = __downloader(limit=limit, offsetAmount=offsetAmount)
 
                 if response is False:
                     print(
@@ -76,8 +84,8 @@ class DownloadJSONFiles:
                 else:
                     offsetAmount += limit
 
-                    _storeData(filepath=self.outputDirectory, count=fileCount)
-
-                    fileCount += 1
-
+                    __storeData(
+                        data=response.json(),
+                        filepath=self.outputDirectory,
+                    )
                 bar.next()

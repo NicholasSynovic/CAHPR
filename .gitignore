@@ -1,3 +1,4 @@
 crimes/*
 vscode/
 */__pycache__
+/libs/data
