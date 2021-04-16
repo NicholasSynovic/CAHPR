@@ -1,3 +1,4 @@
-black
+yapf
 isort
 progress
+pylint
