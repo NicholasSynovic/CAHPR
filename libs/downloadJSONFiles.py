@@ -1,6 +1,7 @@
+from os import isdir, mkdir
 from os.path import join
-import requests
 
+import requests
 from progress.bar import Bar
 from requests.models import HTTPError, Response
 
@@ -15,6 +16,11 @@ class DownloadJSONFiles:
             offset,
             appToken,
         )
+
+        if isdir(self.outputDirectory):
+            pass
+        else:
+            mkdir(self.outputDirectory)
 
     def downloadJSONFiles(
         self,
