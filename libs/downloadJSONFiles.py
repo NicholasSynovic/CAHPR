@@ -1,9 +1,7 @@
 import hashlib
-
+from json import dumps
 from os import mkdir
 from os.path import isdir, join
-
-from json import dumps
 
 import requests
 from progress.bar import Bar

@@ -22,16 +22,21 @@ class MergeJSONFiles:
     def merge(self, jsonFileSet: set) -> None:
         # https://blog.softhints.com/how-to-merge-multiple-csv-files-with-python/
 
+        print("Generating DataFrames from JSON ")
         df_FromAll = (pandas.read_json(json) for json in jsonFileSet)
 
         try:
+            print("Concatinating DataFrames")
             df_Merged = pandas.concat(df_FromAll, ignore_index=True)
         except ValueError as ve:
             print("Concatination Failed: {}\n".format(ve))
             exit(1)
         else:
-            exportLocation = join(self.dir, "_merged.json")
-            print("Exporting DataFrame to JSON at {}...".format(exportLocation))
+            print("Exporting data to file")
+            exportLocation = join(self.directory, "_merged.json")
+            print(
+                "Exporting DataFrame to JSON at {}...".format(exportLocation),
+            )
             df_Merged.to_json()(exportLocation)
 
 
