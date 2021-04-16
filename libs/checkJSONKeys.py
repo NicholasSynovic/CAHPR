@@ -1,14 +1,20 @@
-import json
+'''
+Testing
+'''
+
+from json import load
+
 from progress.bar import Bar
 
 
 class CheckJSONKeys:
+
     def __init__(self, filename: str, keyList: list) -> None:
         self.filename: str = filename
         self.keyList: list = keyList
 
         with open(filename, "r") as file:
-            self.data: dict = json.load(fp=file)[0]
+            self.data: dict = load(fp=file)[0]
         file.close()
 
     def setData(self, filename: str) -> None:
@@ -23,8 +29,8 @@ class CheckJSONKeys:
         dataKeys: list = list(self.data.keys())
 
         with Bar(
-            message="Checking that keys exists in {}".format(self.filename),
-            max=len(self.keyList),
+                message="Checking that keys exists in {}".format(self.filename),
+                max=len(self.keyList),
         ) as bar:
             for key in self.keyList:
                 try:

@@ -1,2 +1,7 @@
 [yapf]
-based_on_style = google
+based_on_style=google
+COLUMN_LIMIT=80
+indent_width=2
+CONTINUATION_ALIGN_STYLE=VALIGN-RIGHT
+CONTINUATION_INDENT_WIDTH=2
+SPACES_BEFORE_COMMENT=2
