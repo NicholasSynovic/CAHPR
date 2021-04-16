@@ -9,7 +9,7 @@ from requests.models import HTTPError, Response
 class DownloadJSONFiles:
     def __init__(self, appToken: str, outputDirectory: str) -> None:
         self.outputDirectory: str = outputDirectory
-        baseURL: str = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$limit={}&$offset={}&$$app_token={}"
+        baseURL: str = "https://data.cityofchicago.org/resource/6zsd-86xi.json?$limit={}&$offset={}&$$app_token={}"  # E501 Error: Line too long
 
         self.url: str = lambda limit, offset: baseURL.format(
             limit,

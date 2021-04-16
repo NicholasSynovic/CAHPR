@@ -1,4 +1,4 @@
-import json
+import pandas
 
 
 class Generator:
@@ -7,10 +7,6 @@ class Generator:
         self.key = key
         self.data = []
         self.mega = []
-
-    def getData(self):
-
-        return self.data
 
     def getDataFromFile(self, filename: str) -> None:
 
