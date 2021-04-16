@@ -1,0 +1,9 @@
+cycler
+kiwisolver
+matplotlib
+numpy
+pyparsing
+python-dateutil
+scikit-learn
+scipy
+six
