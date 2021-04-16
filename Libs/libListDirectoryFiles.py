@@ -4,7 +4,7 @@ Parses a directory and provides functions to look at the paths of files int the
 directory.
 """
 
-import os   # Used to parse a directory on disk
+import os  # Used to parse a directory on disk
 
 
 class GetFiles:

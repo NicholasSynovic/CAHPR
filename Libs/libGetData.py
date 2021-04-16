@@ -4,6 +4,7 @@ Library to parse and format JSON data into CSV and numpy.array
 data structures.
 """
 import json  # Needed to parse through data
+
 import numpy  # Needed to output a numpy.array
 
 

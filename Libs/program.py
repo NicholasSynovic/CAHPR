@@ -3,13 +3,15 @@
 Functions that allow for user input to be handled across libraries.
 """
 
+import json  # Used to manipulate JSON files
+import os  # Used to manipulate underlying operating system commands
+
+import numpy  # Used to convert data types to a numpy.array
+
 import Libs.libCheckJSON as CJ
 import Libs.libDownloadJSON as DJ
 import Libs.libGenerateJSON as GJ
 import Libs.libListDirectoryFiles as LDF
-import json  # Used to manipulate JSON files
-import numpy    # Used to convert data types to a numpy.array
-import os   # Used to manipulate underlying operating system commands
 
 
 class Program:

@@ -1,23 +1,7 @@
-"""CREATED BY: Nicholas M. Synovic.
+import matplotlib.pyplot as plt
+import numpy
+from sklearn.decomposition import PCA
 
-This file is based off of the "Comparison of LDA and PCA 2D projection of Iris
-dataset" provided by SciKit-Learn documentation (https://scikit-learn.org/
-stable/auto_examples/decomposition/plot_pca_vs_lda.html).
-
-This file has been modified by Dr. Mark V. Albert. Without him, the PCA
-of our data could not be performed.
-
-NOTE: Unless otherwise stated in a comment, all code was written by Nicholas M.
-Synovic.
-
-Performs PCA on crime rates and housing data.
-"""
-
-# Block is from the "Comparison of LDA and PCA 2D projection of Iris dataset"
-import matplotlib.pyplot as plt     # Used to plot points and output a graph.
-from sklearn.decomposition import PCA   # Used to perform PCA.
-##
-import numpy    # Used to access the numpy.array data structure
 import Libs.program
 
 # Block is code that Nicholas M. Synovic has written
