@@ -2,6 +2,7 @@ from os import listdir
 from os.path import join
 
 import pandas
+from pandas import DataFrame
 
 
 class MergeJSONFiles:
@@ -19,7 +20,7 @@ class MergeJSONFiles:
 
         return jsonFilePaths
 
-    def merge(self, jsonFileSet: set) -> None:
+    def merge(self, jsonFileSet: set) -> DataFrame:
         # https://blog.softhints.com/how-to-merge-multiple-csv-files-with-python/
 
         print("Generating DataFrames from JSON ")
