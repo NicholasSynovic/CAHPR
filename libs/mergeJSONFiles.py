@@ -25,19 +25,8 @@ class MergeJSONFiles:
         print("Generating DataFrames from JSON ")
         df_FromAll = (pandas.read_json(json) for json in jsonFileSet)
 
-        try:
-            print("Concatinating DataFrames")
-            df_Merged = pandas.concat(df_FromAll, ignore_index=True)
-        except ValueError as ve:
-            print("Concatination Failed: {}\n".format(ve))
-            exit(1)
-        else:
-            print("Exporting data to file")
-            exportLocation = join(self.directory, "_merged.json")
-            print(
-                "Exporting DataFrame to JSON at {}...".format(exportLocation),
-            )
-            df_Merged.to_json()(exportLocation)
+        print("Concatinating DataFrames")
+        return pandas.concat(df_FromAll, ignore_index=True)
 
 
 m = MergeJSONFiles("data")
