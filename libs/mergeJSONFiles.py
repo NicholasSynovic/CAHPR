@@ -28,8 +28,3 @@ class MergeJSONFiles:
 
         print("Concatinating DataFrames")
         return pandas.concat(df_FromAll, ignore_index=True)
-
-
-m = MergeJSONFiles("data")
-fps = m.getJSONFilePaths()
-m.merge(fps)
